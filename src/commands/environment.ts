@@ -1,8 +1,15 @@
 import { axiosInstance, getConfig, setConfig } from "../utils";
 
 export async function environment(str: string, opts: any) {
+    if (opts.unset) {
+        setConfig("environment", "");
+        setConfig("environmentDisplayName", "");
+        console.log("Environment is unset");
+        return;
+    }
+
     if (!str) {
-        console.log(getConfig("environment") || "No environment set");
+        console.log(getConfig("environmentDisplayName") || "No environment set");
         return;
     }
 
@@ -43,6 +50,7 @@ export async function environment(str: string, opts: any) {
     }
 
     setConfig("environment", selectedEnvironment._id);
+    setConfig("environmentDisplayName", str)
     
     console.log("Environment is set to", str);
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { environment, exec, fork, login } from './commands';
+import { environment, exec, fork, login, logout } from './commands';
 
 const program = new Command();
 
@@ -35,6 +35,12 @@ program
     .command("environment")
     .description("Prints or sets the environment")
     .argument("[environment]", "Environment name to set")
+    .option("--unset", "Unset the environment", false)
     .action(environment);
+
+program
+    .command("logout")
+    .description("Logout from Configoat.com")
+    .action(logout);
 
 program.parse(process.argv);
