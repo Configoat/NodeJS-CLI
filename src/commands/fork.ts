@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, unlinkSync, writeFileSync } from "fs";
 import { fork as cpFork } from 'child_process';
 import { parseArgsStringToArgv } from 'string-argv';
 import { Configoat } from "@configoat/sdk";
@@ -21,7 +21,8 @@ export async function fork(str: string, opts: any) {
 
     await Configoat.init({
         autoReload: opts.runtime,
-        autoReloadInterval: interval*1000,
+        autoReloadInterval: interval * 1000,
+        apiUrl: process.env.CONFIGOAT_CLI_API_URL,
     });
 
     const fileContent = readFileSync(cmd!, "utf-8");
@@ -37,13 +38,26 @@ export async function fork(str: string, opts: any) {
 
     writeFileSync(tempFileName, code + fileContent, "utf-8");
 
-    const cp = cpFork(tempFileName, argv, { env: {
-        ENV: JSON.stringify(process.env),
-    } });
+    const cp = cpFork(tempFileName, argv, {
+        env: {
+            ENV: JSON.stringify(process.env),
+        }
+    });
+
+    function tryToRemoveFile() {
+        try {
+            unlinkSync(tempFileName);
+        } catch (e) { }
+    }
 
     cp.on("exit", () => {
+        tryToRemoveFile();
         process.exit(0);
     });
+
+    process.on('SIGINT', () => tryToRemoveFile());  // CTRL+C
+    process.on('SIGQUIT', () => tryToRemoveFile()); // Keyboard quit
+    process.on('SIGTERM', () => tryToRemoveFile()); // `kill` command
 
     Configoat.onReload(({ deleted, created, updated }) => {
         if (deleted.length || created.length || updated.length) {

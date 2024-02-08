@@ -13,6 +13,7 @@ export async function exec(str: string, opts: any) {
     await Configoat.init({
         autoReload: opts.runtime,
         autoReloadInterval: interval * 1000,
+        apiUrl: process.env.CONFIGOAT_CLI_API_URL,
     });
 
     const argv = parseArgsStringToArgv(str);
