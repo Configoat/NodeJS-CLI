@@ -30,11 +30,6 @@ export async function exec(str: string, opts: any) {
         }
     }
 
-    console.log(Object.fromEntries(
-        Object.entries(process.env)
-            .map(([k, v]) => [k, typeof v === "string" ? v : JSON.stringify(v)])));
-    
-
     function summon() {
         cp?.off("exit", exitListener);
         cp = spawn(cmd as any, argv, {
