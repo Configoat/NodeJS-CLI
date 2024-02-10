@@ -1,6 +1,6 @@
 {
   "name": "@configoat/cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A CLI tool for Configoat services",
   "main": "build/index.js",
   "scripts": {
@@ -28,10 +28,11 @@
   "bin": "./build/cli.js",
   "homepage": "https://configoat.com",
   "dependencies": {
-    "@configoat/sdk": "^0.0.3",
+    "@configoat/sdk": "^0.0.5",
     "@fastify/cors": "^9.0.1",
     "axios": "^1.6.7",
     "commander": "^12.0.0",
+    "dotenv": "^16.4.1",
     "fastify": "^4.26.0",
     "opener": "^1.5.2",
     "string-argv": "^0.3.2"

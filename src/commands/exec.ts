@@ -1,8 +1,11 @@
 import { Configoat } from "@configoat/sdk";
 import { parseArgsStringToArgv } from 'string-argv';
 import { ChildProcess, spawn } from 'child_process';
+import { loadDotEnv } from "../utils";
 
 export async function exec(str: string, opts: any) {
+    loadDotEnv(opts);
+    
     const interval = +opts.interval;
 
     if (isNaN(interval)) {

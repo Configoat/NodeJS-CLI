@@ -16,6 +16,8 @@ program
     .argument("<command>", "The command to execute")
     .option("-nr, --no-runtime", "Do not use runtime configuration", true)
     .option("-i, --interval <interval>", "The interval to check for changes", "60")
+    .option("-ef, --envFile <fileName>", "The dot env file to load.", ".env")
+    .option("-ne, --no-env", "Do not load dot env file.", true)
     .action(exec);
 
 program
@@ -24,6 +26,8 @@ program
     .argument("<file>", "The file to execute")
     .option("-nr, --no-runtime", "Do not use runtime configuration", true)
     .option("-i, --interval <interval>", "The interval to check for changes", "60")
+    .option("-ef, --envFile <fileName>", "The dot env file to load.", ".env")
+    .option("-ne, --no-env", "Do not load dot env file.", true)
     .action(fork);
 
 program

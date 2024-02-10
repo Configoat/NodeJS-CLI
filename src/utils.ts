@@ -35,3 +35,9 @@ export const axiosInstance = axios.create({
         "Content-Type": "application/json",
     },
 });
+
+export function loadDotEnv(opts: any) {
+    if (opts.env) {
+        require("dotenv").config({ path: opts.envFile });
+    }
+}

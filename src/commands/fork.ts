@@ -2,8 +2,11 @@ import { readFileSync, unlinkSync, writeFileSync } from "fs";
 import { fork as cpFork } from 'child_process';
 import { parseArgsStringToArgv } from 'string-argv';
 import { Configoat } from "@configoat/sdk";
+import { loadDotEnv } from "../utils";
 
 export async function fork(str: string, opts: any) {
+    loadDotEnv(opts);
+    
     const argv = parseArgsStringToArgv(str);
     const cmd = argv.shift();
 
