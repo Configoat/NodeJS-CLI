@@ -30,7 +30,7 @@ export function getConfig(key: string) {
 }
 
 export const axiosInstance = axios.create({
-    baseURL: (process.env.CONFIGOAT_CLI_API_URL || "https://configoat.com") + "/v1",
+    baseURL: (process.env.CONFIGOAT_CLI_API_URL || "https://api.configoat.com") + "/v1",
     headers: {
         "Content-Type": "application/json",
     },
